@@ -6,7 +6,7 @@ import { HoverEffect } from './ui/card-hover-effect';
 const Features = () => {
   return (
     <>
-      <Image
+      {/* <Image
         className="h-screen w-full object-cover overflow-hidden relative"
         src="/summerroad.jpeg" //?? change source to change initial b
         width={500}
@@ -14,7 +14,7 @@ const Features = () => {
         sizes="(100vw, 100vh)"
         quality={100}
         alt="road background image"
-      />
+      /> */}
       <div className="absolute max-w-5xl mx-auto px-8">
         <HoverEffect items={projects} />
       </div>
@@ -26,39 +26,21 @@ export default Features;
 
 export const projects = [
   {
-    title: 'Stripe',
+    card: 1,
+    title: 'Up to Date Weather',
     description:
       'A technology company that builds economic infrastructure for the internet.',
-    link: 'https://stripe.com',
   },
   {
-    title: 'Netflix',
+    card: 2,
+    title: 'Save Searches for Later!',
     description:
       'A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.',
-    link: 'https://netflix.com',
   },
   {
-    title: 'Google',
+    card: 3,
+    title: 'Plan out your day with Next Weather',
     description:
       'A multinational technology company that specializes in Internet-related services and products.',
-    link: 'https://google.com',
-  },
-  {
-    title: 'Meta',
-    description:
-      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-    link: 'https://meta.com',
-  },
-  {
-    title: 'Amazon',
-    description:
-      'A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.',
-    link: 'https://amazon.com',
-  },
-  {
-    title: 'Microsoft',
-    description:
-      'A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.',
-    link: 'https://microsoft.com',
   },
 ];

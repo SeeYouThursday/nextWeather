@@ -29,7 +29,7 @@ export default function Home() {
         {sections.map((section, index) => {
           return <SwiperSlide key={index}>{section}</SwiperSlide>;
         })}
-        {/* Get Start Btn */}
+        {/* Get Started Btn */}
         {/* Search Bar --- sign up to save your searches */}
         {/*// Login/Signup Modal? with refresh to actual route (.)  */}
         {/* On Login Show Dashboard? or Show Search Page? */}
