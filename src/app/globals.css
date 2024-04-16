@@ -31,3 +31,9 @@ body {
     text-wrap: balance;
   }
 }
+.featureCard {
+  background-color: #f9edac;
+  background-image: url('/5day_card.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
