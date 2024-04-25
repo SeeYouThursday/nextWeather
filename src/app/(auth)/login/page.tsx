@@ -1,3 +1,5 @@
+'use client';
+
 import { Input } from '@nextui-org/react';
 
 const Login = () => {
