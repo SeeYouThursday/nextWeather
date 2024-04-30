@@ -13,7 +13,7 @@ interface Coords {
 
 const FiveDayForeCast = async ({ city }: { city: string }) => {
   try {
-    const coords: Coords = await geoLocateAPI(city);
+    const coords: Coords | undefined = await geoLocateAPI(city);
     if (!coords) {
       throw new Error('Could Not Retrieve Coordinates.');
     }
