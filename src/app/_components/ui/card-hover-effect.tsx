@@ -1,4 +1,4 @@
-import { cn } from '../../_lib/cn';
+import { cn } from '../../_lib/utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';

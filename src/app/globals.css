@@ -18,12 +18,17 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+.backgroundImage {
+  background-image: url('/road2.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Additional background styles */
+  background-color: #f9edac;
+  /* opacity: 0.8; */
+  /* Add any other background styles you want */
 }
 
 @layer utilities {
@@ -33,7 +38,7 @@ body {
 }
 .featureCard {
   background-color: #f9edac;
-  background-image: url('/5day_card.png');
+  background-image: url('/5dayCards/5day_card.png');
   background-position: center;
   background-repeat: no-repeat;
 }

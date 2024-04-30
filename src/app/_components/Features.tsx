@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { cn } from '@/app/_lib/cn';
+import { cn } from '@/app/_lib/utils/cn';
 import { HoverEffect } from './ui/card-hover-effect';
 
 const Features = () => {

@@ -1,22 +1,11 @@
 import Image from 'next/image';
 import { Button, Link } from '@nextui-org/react';
+import SearchInput from '../_components/Search';
 
 const Hero = () => {
   return (
     <>
-      <Image
-        className="h-screen w-full object-cover overflow-hidden relative"
-        src="/road2.jpeg" //?? change source to change initial b
-        width={500}
-        height={500}
-        sizes="(100vw, 100vh)"
-        quality={100}
-        alt="road background image"
-      />
-      <div
-        className="absolute top-20 xl:top-30
-   left-20 right-20 bottom-0 flex flex-col items-center"
-      >
+      <div className="flex flex-col items-center justify-center m-2">
         {/* Heading - Title */}
         <h1 className="font-satisfyregular text-7xl swiper-no-swiping">
           Next Weather
@@ -28,6 +17,7 @@ const Hero = () => {
         <Button as={Link} className="m-30 ms-40 my-20" href="/login">
           Get Started
         </Button>
+        <SearchInput />
       </div>
     </>
   );
