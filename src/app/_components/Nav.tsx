@@ -44,10 +44,10 @@ const Nav = () => {
         </NavbarContent>
         <NavbarContent>{/* //TODO: Brand Here */}</NavbarContent>
 
-        {/* <NavbarContent
+        <NavbarContent
           className="hidden md:flex gap-4"
           justify="center"
-        ></NavbarContent> */}
+        ></NavbarContent>
 
         {/* {navItems.map((item) => {
         <Nav

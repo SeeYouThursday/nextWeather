@@ -1,6 +1,6 @@
 const weatherApiKey = process.env.NEXT_PUBLIC_WEATHER_API;
 
-const fetchingData = async (api: string) => {
+const fetchingData = async (api) => {
   const response = await fetch(api);
   if (response.status !== 200) {
     return `${response.status} -- It's gotten messy here`;
@@ -10,7 +10,7 @@ const fetchingData = async (api: string) => {
   return data;
 };
 
-export const geoLocateAPI = async (city: string) => {
+export const geoLocateAPI = async (city) => {
   const countryCode = 840; //future dev - include full list to choose from
   const geoAPI = `https://api.openweathermap.org/geo/1.0/direct?q=${city},${countryCode}&appid=${weatherApiKey}`;
   try {
@@ -29,7 +29,7 @@ export const geoLocateAPI = async (city: string) => {
   }
 };
 
-export const fiveDayForecast = async (lat: number, long: number) => {
+export const fiveDayForecast = async (lat, long) => {
   //   api kept switching up lat and longs, so the variables have been switched
   const fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast/?lat=${lat}&lon=${long}&appid=${weatherApiKey}&units=imperial`;
 
@@ -42,29 +42,27 @@ export const fiveDayForecast = async (lat: number, long: number) => {
   }
 };
 
-export const calcHighTemp = (data: any) => {
+export const calcHighTemp = (data) => {
   // Split the data into separate days
-  const splitDays = data.reduce(
-    (
-      acc: Record<string, object[]>,
-      curr: { dt: number; main: { temp: number } }
-    ) => {
-      const date = new Date(curr.dt * 1000); // Convert Unix timestamp to JavaScript Date
-      const dateStr = date.toISOString().split('T')[0]; // Convert Date to YYYY-MM-DD format
+  const splitDays = data.reduce((acc, curr) => {
+    const date = new Date(curr.dt * 1000); // Convert Unix timestamp to JavaScript Date
+    const dateStr = date.toISOString().split('T')[0]; // Convert Date to YYYY-MM-DD format
 
-      if (!acc[dateStr]) {
-        acc[dateStr] = []; // Initialize a new array for this date if it doesn't exist yet
-      }
+    if (!acc[dateStr]) {
+      acc[dateStr] = []; // Initialize a new array for this date if it doesn't exist yet
+    }
 
-      acc[dateStr].push({ time: date, temp: curr.main.temp }); // Add the time and temperature to the array for this date
+    acc[dateStr].push({ time: date, temp: curr.main.temp }); // Add the time and temperature to the array for this date
 
-      return acc;
-    },
-    {}
-  );
+    return acc;
+  }, {});
 
   // Calculate the max temperature for each day and the time it occurred
   const maxTemps = Object.entries(splitDays).map(([date, temps]) => {
+    if (!temps) {
+      return;
+    }
+
     const maxTempData = temps.reduce(
       (max, curr) => (curr.temp > max.temp ? curr : max),
       { temp: -Infinity }
