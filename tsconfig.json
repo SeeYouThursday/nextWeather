@@ -8,6 +8,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
+    "target": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -22,6 +23,12 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/_lib/utils/fetch.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/_lib/utils/fetch.js"
+, "src/app/api/users/createTable.mjs"  ],
   "exclude": ["node_modules"]
 }

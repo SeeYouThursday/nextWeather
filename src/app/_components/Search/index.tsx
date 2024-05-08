@@ -9,14 +9,14 @@ const SearchInput = () => {
   const { setSubmit } = useGlobalSubmit();
   const { city, setCity } = useGlobalContext();
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearch = e.target.value.trim();
+    const newSearch = e.target.value;
     setSearch(newSearch);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (search) {
-      setCity(search);
+      setCity(search.trim());
       console.log(city);
       setSubmit(true);
       return;
@@ -32,8 +32,15 @@ const SearchInput = () => {
           placeholder="Enter City, State, or Zip"
           value={search}
           onChange={handleSearchInput}
+          classNames={{
+            base: 'max-w-full sm:max-w-[90rem] h-10',
+            mainWrapper: 'h-full',
+            input: 'text-small',
+            inputWrapper:
+              'h-full font-normal text-default-500  dark:bg-default-500/20',
+          }}
         ></Input>
-        <Button type="submit">Submit</Button>
+        {/* <Button type="submit">Submit</Button> */}
       </form>
 
       <hr></hr>

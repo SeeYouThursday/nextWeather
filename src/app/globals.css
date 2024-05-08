@@ -22,13 +22,22 @@ body {
 
 .backgroundImage {
   background-image: url('/road2.jpeg');
+  /* Additional background styles */
+  /* opacity: 0.8; */
+  /* Add any other background styles you want */
+}
+.backgroundFeature {
+  background-image: url('/summerroad.jpeg');
+  /* Additional background styles */
+  /* opacity: 0.8; */
+  /* Add any other background styles you want */
+}
+
+.bgImageBasic {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* Additional background styles */
   background-color: #f9edac;
-  /* opacity: 0.8; */
-  /* Add any other background styles you want */
 }
 
 @layer utilities {

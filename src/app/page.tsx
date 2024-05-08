@@ -1,5 +1,6 @@
 'use client';
 import { Suspense } from 'react';
+import Image from 'next/image';
 import Hero from './_components/Hero';
 import Features from './_components/Features';
 import FiveDayForeCast from './_components/FiveDayForecast';
@@ -24,7 +25,7 @@ export default function Home() {
       {/* Hero Image 100% screen */}
       <Swiper
         direction="vertical"
-        className="h-screen w-screen backgroundImage"
+        className="h-screen w-screen"
         mousewheel={{ enabled: true, sensitivity: 1 }}
         keyboard={{ enabled: true, onlyInViewport: false }}
         // effect="fade"
@@ -35,25 +36,33 @@ export default function Home() {
         {/* {sections.map((section, index) => {
           return <SwiperSlide key={index}>{section}</SwiperSlide>;
         })} */}{' '}
-        <SwiperSlide className="backgroundImage">
+        <SwiperSlide className="backgroundImage bgImageBasic">
           <Hero />
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="backgroundFeature bgImageBasic">
           <Features />
-        </SwiperSlide>
-        <SwiperSlide>
-          {' '}
-          {submitted ? (
+        </SwiperSlide>{' '}
+        {/* Search/Results Page */}
+        {submitted ? (
+          <SwiperSlide>
+            <Image
+              src="/LGFiveDayLabel.gif"
+              height={500}
+              width={500}
+              quality={100}
+              alt="Five Day Forecast"
+              className="ms-auto me-auto mt-14 rounded-lg bg-white"
+            />
             <Suspense fallback={<div>Loading</div>}>
-              <FiveDayForeCast city={city} />
+              <section className="flex h-screen swiper-no-swiping">
+                <FiveDayForeCast city={city} />
+              </section>
             </Suspense>
-          ) : null}
-        </SwiperSlide>
+          </SwiperSlide>
+        ) : null}
         {/* Get Started Btn */}
         {/* Search Bar --- sign up to save your searches */}
-        {/*// Login/Signup Modal? with refresh to actual route (.)  */}
         {/* On Login Show Dashboard? or Show Search Page? */}
-        {/* Search/Results Page */}
         {/* On showing Results use a save icon that changes based on state (optimistic) --//! Add functionality after DB connection*/}
         {/* //TODO To be completed after hooking up DB */}
         {/*//TODO: Dashboard //*/}

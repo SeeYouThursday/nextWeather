@@ -73,18 +73,25 @@ const FiveDayForeCast = ({ city }: { city: string }) => {
     return <div>Loading...</div>;
   }
 
-  return weatherData.map(
-    (data: WeatherData): React.ReactElement => (
-      <WeatherCard
-        key={data.dt}
-        date={new Date(data.dt * 1000).toISOString()}
-        temp={data.main.temp}
-        wind={data.wind.speed}
-        humidity={data.main.humidity}
-        icon={data.weather[0].icon}
-        description={data.weather[0].description}
-      />
-    )
+  return (
+    <div className="flex flex-col">
+      <h3 className="text-black">{city}</h3>
+      <div className="flex flex-wrap sm:items-start lg:items-center md:justify-center">
+        {weatherData.map(
+          (data: WeatherData): React.ReactElement => (
+            <WeatherCard
+              key={data.dt}
+              date={new Date(data.dt * 1000).toISOString()}
+              temp={data.main.temp}
+              wind={data.wind.speed}
+              humidity={data.main.humidity}
+              icon={data.weather[0].icon}
+              description={data.weather[0].description}
+            />
+          )
+        )}
+      </div>
+    </div>
   );
 };
 

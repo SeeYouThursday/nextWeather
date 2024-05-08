@@ -1,5 +1,12 @@
 'use client';
 import {
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
+
+import {
   Navbar,
   NavbarBrand,
   NavbarMenuToggle,
@@ -12,6 +19,7 @@ import {
 } from '@nextui-org/react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import SearchInput from '@/app/_components/Search';
 
 const Nav = () => {
   // used to track active tab/link in nav
@@ -29,14 +37,12 @@ const Nav = () => {
   const navItems: navItem[] = [
     { href: '/', name: 'Home', isActive: false },
     { href: '/dashboard', name: 'Dashboard', isActive: false },
-    { href: '/login', name: 'Login', isActive: false },
-    { href: '/signup', name: 'Sign Up', isActive: false },
   ];
 
   return (
     <>
       {/* //!! Currently doesn't hide due to Swiper */}
-      <Navbar shouldHideOnScroll={true}>
+      <Navbar shouldHideOnScroll={true} maxWidth="full" className="w-full">
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -44,10 +50,9 @@ const Nav = () => {
         </NavbarContent>
         <NavbarContent>{/* //TODO: Brand Here */}</NavbarContent>
 
-        <NavbarContent
-          className="hidden md:flex gap-4"
-          justify="center"
-        ></NavbarContent>
+        <NavbarContent className="gap-4" justify="center">
+          <SearchInput />
+        </NavbarContent>
 
         {/* {navItems.map((item) => {
         <Nav
@@ -63,6 +68,12 @@ const Nav = () => {
               </NavbarItem>
             );
           })}
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </NavbarContent>
       </Navbar>
     </>

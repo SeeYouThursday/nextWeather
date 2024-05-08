@@ -22,12 +22,13 @@ export default function WeatherCard({
 }: WeatherProps) {
   return (
     <>
-      <Card
-        className="transition-transform duration-500 ease-in-out transform hover:scale-105 grid  items-end justify-center text-center bg-cover bg-center rounded-large relative"
-      >
+      <Card className="transition-transform duration-500 ease-in-out transform hover:scale-105 grid  items-end justify-center text-center bg-cover bg-center rounded-large relative w-[220px] m-3 bg-blue-500">
         <CardBody className="pt-0">
-          <CardHeader className="bg-blue-500 w-full p-0 m-auto">
-            <p>{dayjs(date).format('dddd')}</p> {dayjs(date).format('M/D/YYYY')}
+          <CardHeader className="p-0">
+            <p className="text-balance text-center">
+              {dayjs(date).format('dddd')},<br></br>{' '}
+              {dayjs(date).format('M/D/YYYY')}
+            </p>
           </CardHeader>
           <div className="flex justify-center align-center">
             <p color="blue-gray" className="m-auto">
@@ -39,6 +40,7 @@ export default function WeatherCard({
               className="m-auto"
               width={50}
               height={50}
+              quality={100}
             />
           </div>
           <p color="blue-gray">Wind: {wind} mph</p>
