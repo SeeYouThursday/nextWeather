@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
     const result = await sql`INSERT INTO Users (clerkid) VALUES (${userId});`;
     return NextResponse.json({ result }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
