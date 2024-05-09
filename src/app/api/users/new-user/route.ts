@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { getAuth } from '@clerk/nextjs/server';
-import { NextApiRequest, NextApiResponse } from 'next';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { userId } = getAuth(req, {
       secretKey: process.env.NEXT_CLERK_SECRET_KEY,
