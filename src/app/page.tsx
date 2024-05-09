@@ -38,11 +38,7 @@ export default function Home() {
         })} */}{' '}
         <SwiperSlide className="backgroundImage bgImageBasic">
           <Hero />
-        </SwiperSlide>
-        <SwiperSlide className="backgroundFeature bgImageBasic">
-          <Features />
         </SwiperSlide>{' '}
-        {/* Search/Results Page */}
         {submitted ? (
           <SwiperSlide>
             <Image
@@ -60,6 +56,10 @@ export default function Home() {
             </Suspense>
           </SwiperSlide>
         ) : null}
+        <SwiperSlide className="backgroundFeature bgImageBasic">
+          <Features />
+        </SwiperSlide>{' '}
+        {/* Search/Results Page */}
         {/* Get Started Btn */}
         {/* Search Bar --- sign up to save your searches */}
         {/* On Login Show Dashboard? or Show Search Page? */}

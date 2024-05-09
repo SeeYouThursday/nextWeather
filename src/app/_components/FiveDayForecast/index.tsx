@@ -7,6 +7,7 @@ import {
 } from '@/app/_lib/utils/fetch';
 import WeatherCard from '../WeatherCard';
 import { useGlobalContext } from '@/app/providers';
+
 interface WeatherData {
   dt: number;
   main: {
@@ -74,8 +75,8 @@ const FiveDayForeCast = ({ city }: { city: string }) => {
   }
 
   return (
-    <div className="flex flex-col">
-      <h3 className="text-black">{city}</h3>
+    <div className="flex flex-col items-center ms-auto me-auto">
+      <h3 className="text-black text-center m-3 font-bold text-2xl">{city}</h3>
       <div className="flex flex-wrap sm:items-start lg:items-center md:justify-center">
         {weatherData.map(
           (data: WeatherData): React.ReactElement => (

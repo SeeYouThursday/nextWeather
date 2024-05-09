@@ -1,10 +1,5 @@
 'use client';
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs';
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 import {
   Navbar,
@@ -42,7 +37,11 @@ const Nav = () => {
   return (
     <>
       {/* //!! Currently doesn't hide due to Swiper */}
-      <Navbar shouldHideOnScroll={true} maxWidth="full" className="w-full">
+      <Navbar
+        shouldHideOnScroll={true}
+        maxWidth="full"
+        className="w-full bg-blue-400"
+      >
         <NavbarContent className="sm:hidden" justify="start">
           <NavbarMenuToggle
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
