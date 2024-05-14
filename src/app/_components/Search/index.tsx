@@ -13,13 +13,20 @@ const SearchInput = () => {
     setSearch(newSearch);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (search) {
       setCity(search.trim());
       console.log(city);
       setSubmit(true);
-      return;
+      try {
+        await fetch('/api/search-history/create', {
+          method: 'POST',
+          body: JSON.stringify({ city: city }),
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     //TODO: Write code here for if user is signed in once NextAuth is set up

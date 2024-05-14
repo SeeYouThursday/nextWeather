@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import Hero from './_components/Hero';
 import Features from './_components/Features';
+import SearchHist from './_components/SearchHist';
 import FiveDayForeCast from './_components/FiveDayForecast';
 import { useGlobalContext, useGlobalSubmit } from '@/app/providers';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -39,23 +40,25 @@ export default function Home() {
         <SwiperSlide className="backgroundImage bgImageBasic">
           <Hero />
         </SwiperSlide>{' '}
-        {submitted ? (
-          <SwiperSlide>
-            <Image
-              src="/LGFiveDayLabel.gif"
-              height={500}
-              width={500}
-              quality={100}
-              alt="Five Day Forecast"
-              className="ms-auto me-auto mt-14 rounded-lg bg-white"
-            />
+        <SwiperSlide className="flex">
+          <Image
+            src="/LGFiveDayLabel.gif"
+            height={500}
+            width={500}
+            quality={100}
+            alt="Five Day Forecast"
+            className="ms-auto me-auto mt-14 rounded-lg bg-white"
+          />{' '}
+          <div className="flex">
+            <SearchHist />
             <Suspense fallback={<div>Loading</div>}>
               <section className="flex h-screen swiper-no-swiping">
+                <h2>{city}</h2>
                 <FiveDayForeCast city={city} />
               </section>
             </Suspense>
-          </SwiperSlide>
-        ) : null}
+          </div>
+        </SwiperSlide>
         <SwiperSlide className="backgroundFeature bgImageBasic">
           <Features />
         </SwiperSlide>{' '}
