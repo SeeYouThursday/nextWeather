@@ -39,6 +39,9 @@ export default function Home() {
         })} */}{' '}
         <SwiperSlide className="backgroundImage bgImageBasic">
           <Hero />
+          <div className="flex">
+            <SearchHist />
+          </div>
         </SwiperSlide>{' '}
         <SwiperSlide className="flex">
           <Image
@@ -49,19 +52,16 @@ export default function Home() {
             alt="Five Day Forecast"
             className="ms-auto me-auto mt-14 rounded-lg bg-white"
           />{' '}
-          <div className="flex">
-            <SearchHist />
-            <Suspense fallback={<div>Loading</div>}>
-              <section className="flex h-screen swiper-no-swiping">
-                <h2>{city}</h2>
-                <FiveDayForeCast city={city} />
-              </section>
-            </Suspense>
-          </div>
         </SwiperSlide>
         <SwiperSlide className="backgroundFeature bgImageBasic">
           <Features />
         </SwiperSlide>{' '}
+        <Suspense fallback={<div>Loading</div>}>
+          <section className="flex h-screen swiper-no-swiping">
+            <h2>{city}</h2>
+            <FiveDayForeCast city={city} />
+          </section>
+        </Suspense>
         {/* Search/Results Page */}
         {/* Get Started Btn */}
         {/* Search Bar --- sign up to save your searches */}

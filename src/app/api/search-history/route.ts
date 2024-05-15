@@ -1,3 +1,4 @@
+'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { getAuth } from '@clerk/nextjs/server';
@@ -13,8 +14,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
 
     const { rows, fields } =
-      await sql`SELECT cities FROM users WHERE clerkId = ${userId}`;
+      await sql`SELECT DISTINCT cities FROM users WHERE clerkId = ${userId};`;
     console.log(rows, 'search');
+    console.log(fields);
 
     return NextResponse.json({ rows }, { status: 200 });
   } catch (error: any) {
