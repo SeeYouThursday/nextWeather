@@ -3,11 +3,16 @@ import { useState, Suspense } from 'react';
 import { Input, Button } from '@nextui-org/react';
 import FiveDayForeCast from '../FiveDayForecast';
 import { useGlobalContext, useGlobalSubmit } from '@/app/providers';
+// import { getAuth } from '@clerk/nextjs/server';
+import { useUser } from '@clerk/nextjs';
 
 const SearchInput = () => {
   const [search, setSearch] = useState('');
   const { setSubmit } = useGlobalSubmit();
   const { city, setCity } = useGlobalContext();
+
+  const { isLoaded, isSignedIn, user } = useUser();
+
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch = e.target.value;
     setSearch(newSearch);
@@ -23,7 +28,23 @@ const SearchInput = () => {
         await fetch('/api/search-history/create', {
           method: 'POST',
           body: JSON.stringify({ city: city }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
+
+        if (user?.id) {
+          try {
+            await fetch('/api/users/user-check', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+          } catch (err) {
+            console.log(err);
+          }
+        }
       } catch (err) {
         console.log(err);
       }

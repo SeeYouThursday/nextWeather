@@ -17,6 +17,7 @@ SwiperCore.use([Mousewheel, Keyboard]); //option to use EffectFade here
 const sections = [<Hero key={'hero'} />, <Features key={'features'} />];
 
 //https://stackoverflow.com/questions/66196963/swiper-react-mouse-wheel-scrolling-and-keyboard-control-not-working
+
 export default function Home() {
   const { city } = useGlobalContext();
   const { submitted } = useGlobalSubmit();

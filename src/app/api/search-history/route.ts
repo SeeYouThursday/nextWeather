@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
 
     const { rows, fields } =
-      await sql`SELECT DISTINCT cities FROM users WHERE clerkId = ${userId};`;
+      await sql`SELECT cities FROM users WHERE clerkId = ${userId};`;
     console.log(rows, 'search');
     console.log(fields);
 

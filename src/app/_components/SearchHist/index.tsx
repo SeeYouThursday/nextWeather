@@ -1,8 +1,15 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/react';
+import { useUser } from '@clerk/nextjs';
 
 const SearchHist = () => {
   const [searchHistory, setSearchHistory] = useState<Cities>([]);
+  const [currUser, setUser] = useState('');
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  // if (isLoaded && user) {
+  //   setUser(user.id);
+  // }
 
   type Cities = {
     cities: string[];
@@ -25,19 +32,21 @@ const SearchHist = () => {
 
   return (
     <>
-      <Suspense fallback="loading">
-        <ListboxWrapper>
-          <Listbox
-            className="flex flex-wrap flex-col overflow-scroll"
-            aria-label="search history"
-          >
-            {searchHistory[0] &&
-              searchHistory[0].cities?.map((item: string, index: number) => (
-                <ListboxItem key={index}>{item} Blue</ListboxItem>
-              ))}
-          </Listbox>
-        </ListboxWrapper>
-      </Suspense>
+      {user ? (
+        <Suspense fallback="loading">
+          <ListboxWrapper>
+            <Listbox
+              className="flex flex-wrap flex-col overflow-scroll"
+              aria-label="search history"
+            >
+              {searchHistory[0] &&
+                searchHistory[0].cities.map((item: string, index: number) => (
+                  <ListboxItem key={index}>{item} Blue</ListboxItem>
+                ))}
+            </Listbox>
+          </ListboxWrapper>
+        </Suspense>
+      ) : null}
     </>
   );
 };
