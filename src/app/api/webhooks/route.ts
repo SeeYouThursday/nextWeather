@@ -57,15 +57,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { id } = evt.data;
   const eventType = evt.type;
 
-  if (eventType === 'user.created') {
-    console.log('userId:', id);
-    try {
-      const result = await sql`INSERT INTO Users (clerkId) VALUES (${id}) `;
-      return NextResponse.json({ result }, { status: 200 });
-    } catch (error: any) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+  try {
+    const result = await sql`INSERT INTO Users (clerkId) VALUES (${id}) `;
+    return NextResponse.json({ result }, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
-
-  return new Response('', { status: 200 });
 }

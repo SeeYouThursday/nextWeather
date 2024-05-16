@@ -1,5 +1,5 @@
 'use client';
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { Input, Button } from '@nextui-org/react';
 import FiveDayForeCast from '../FiveDayForecast';
 import { useGlobalContext, useGlobalSubmit } from '@/app/providers';
@@ -9,9 +9,27 @@ import { useUser } from '@clerk/nextjs';
 const SearchInput = () => {
   const [search, setSearch] = useState('');
   const { setSubmit } = useGlobalSubmit();
+
   const { city, setCity } = useGlobalContext();
 
   const { isLoaded, isSignedIn, user } = useUser();
+
+  useEffect(() => {
+    const updateCity = async () => {
+      try {
+        await fetch('/api/search-history/update', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ city: city }),
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    updateCity();
+  }, [city]);
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch = e.target.value;
@@ -24,33 +42,7 @@ const SearchInput = () => {
       setCity(search.trim());
       console.log(city);
       setSubmit(true);
-      try {
-        await fetch('/api/search-history/create', {
-          method: 'POST',
-          body: JSON.stringify({ city: city }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (user?.id) {
-          try {
-            await fetch('/api/users/user-check', {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-          } catch (err) {
-            console.log(err);
-          }
-        }
-      } catch (err) {
-        console.log(err);
-      }
     }
-
-    //TODO: Write code here for if user is signed in once NextAuth is set up
   };
 
   return (

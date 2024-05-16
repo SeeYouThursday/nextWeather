@@ -35,15 +35,12 @@ export default function Home() {
 
         // https://swiperjs.com/swiper-api#param-eventsTarget
       >
-        {/* {sections.map((section, index) => {
-          return <SwiperSlide key={index}>{section}</SwiperSlide>;
-        })} */}{' '}
         <SwiperSlide className="backgroundImage bgImageBasic">
           <Hero />
           <div className="flex">
             <SearchHist />
           </div>
-        </SwiperSlide>{' '}
+        </SwiperSlide>
         <SwiperSlide className="flex">
           <Image
             src="/LGFiveDayLabel.gif"
@@ -56,23 +53,13 @@ export default function Home() {
         </SwiperSlide>
         <SwiperSlide className="backgroundFeature bgImageBasic">
           <Features />
-        </SwiperSlide>{' '}
+        </SwiperSlide>
         <Suspense fallback={<div>Loading</div>}>
           <section className="flex h-screen swiper-no-swiping">
             <h2>{city}</h2>
             <FiveDayForeCast city={city} />
           </section>
         </Suspense>
-        {/* Search/Results Page */}
-        {/* Get Started Btn */}
-        {/* Search Bar --- sign up to save your searches */}
-        {/* On Login Show Dashboard? or Show Search Page? */}
-        {/* On showing Results use a save icon that changes based on state (optimistic) --//! Add functionality after DB connection*/}
-        {/* //TODO To be completed after hooking up DB */}
-        {/*//TODO: Dashboard //*/}
-        {/*slots */}
-        {/* --- Saved Searches */}
-        {/* Search bar */}
       </Swiper>
     </main>
   );

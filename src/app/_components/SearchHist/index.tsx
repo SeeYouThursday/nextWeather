@@ -40,7 +40,7 @@ const SearchHist = () => {
               aria-label="search history"
             >
               {searchHistory[0] &&
-                searchHistory[0].cities.map((item: string, index: number) => (
+                searchHistory[0].cities?.map((item: string, index: number) => (
                   <ListboxItem key={index}>{item} Blue</ListboxItem>
                 ))}
             </Listbox>
