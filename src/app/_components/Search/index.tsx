@@ -28,7 +28,11 @@ const SearchInput = () => {
         console.log(err);
       }
     };
-    updateCity();
+
+    // Add a condition to check if the city is not empty and has changed before running the effect
+    if (city && city !== '') {
+      updateCity();
+    }
   }, [city]);
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {

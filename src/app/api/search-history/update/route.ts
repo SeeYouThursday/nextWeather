@@ -18,7 +18,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log(body, 'body');
     const { rows } =
       await sql`UPDATE users SET cities = array_append(cities, ${city}) WHERE clerkId = ${userId};`;
-    console.log(rows, 'search');
 
     return NextResponse.json({ rows }, { status: 200 });
   } catch (error: any) {

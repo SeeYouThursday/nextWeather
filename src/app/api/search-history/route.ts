@@ -7,16 +7,13 @@ import { createClient } from '@vercel/postgres';
 export async function GET(req: NextRequest, res: NextResponse) {
   const client = createClient();
   await client.connect();
+  const { userId } = getAuth(req, {
+    secretKey: process.env.NEXT_CLERK_SECRET_KEY,
+  });
 
   try {
-    const { userId } = getAuth(req, {
-      secretKey: process.env.NEXT_CLERK_SECRET_KEY,
-    });
-
-    const { rows, fields } =
-      await sql`SELECT cities FROM users WHERE clerkId = ${userId};`;
-    console.log(rows, 'search');
-    console.log(fields);
+    const { rows } =
+      await sql`SELECT DISTINCT (cities) FROM users WHERE clerkid = ${userId};`;
 
     return NextResponse.json({ rows }, { status: 200 });
   } catch (error: any) {

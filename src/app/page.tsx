@@ -36,8 +36,8 @@ export default function Home() {
         // https://swiperjs.com/swiper-api#param-eventsTarget
       >
         <SwiperSlide className="backgroundImage bgImageBasic">
-          <Hero />
-          <div className="flex">
+          <div className="flex justify-evenly">
+            <Hero />
             <SearchHist />
           </div>
         </SwiperSlide>

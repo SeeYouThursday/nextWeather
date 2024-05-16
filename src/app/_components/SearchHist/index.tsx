@@ -4,24 +4,26 @@ import { useUser } from '@clerk/nextjs';
 
 const SearchHist = () => {
   const [searchHistory, setSearchHistory] = useState<Cities>([]);
-  const [currUser, setUser] = useState('');
-  const { isLoaded, isSignedIn, user } = useUser();
+  const { user } = useUser();
 
   // if (isLoaded && user) {
   //   setUser(user.id);
   // }
 
-  type Cities = {
-    cities: string[];
-  }[];
+  type Cities = string[];
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/search-history');
+        const response = await fetch('/api/search-history', { method: 'GET' });
         const { rows } = await response.json();
         console.log(rows[0].cities, 'looking for cities');
-        setSearchHistory(rows);
+        const results = await rows[0].cities.filter(
+          (city: string) => city !== ''
+        );
+        console.log(results, 'results');
+        setSearchHistory(results);
+        // setSearchHistory(rows)
       } catch (err) {
         console.log(err);
       }
@@ -36,12 +38,12 @@ const SearchHist = () => {
         <Suspense fallback="loading">
           <ListboxWrapper>
             <Listbox
-              className="flex flex-wrap flex-col overflow-scroll"
+              className="flex flex-wrap flex-col overflow-scroll max-h-48"
               aria-label="search history"
             >
-              {searchHistory[0] &&
-                searchHistory[0].cities?.map((item: string, index: number) => (
-                  <ListboxItem key={index}>{item} Blue</ListboxItem>
+              {searchHistory &&
+                searchHistory.map((item: string, index: number) => (
+                  <ListboxItem key={index}>{item}</ListboxItem>
                 ))}
             </Listbox>
           </ListboxWrapper>
@@ -54,7 +56,7 @@ const SearchHist = () => {
 export default SearchHist;
 
 export const ListboxWrapper = ({ children }: { children: React.ReactNode }) => (
-  <div className="w-full max-w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
+  <div className="w-full max-w-[260px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100 m-6">
     {children}
   </div>
 );
