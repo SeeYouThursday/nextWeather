@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
-import { Listbox, ListboxItem } from '@nextui-org/react';
+import { Divider, Listbox, ListboxItem } from '@nextui-org/react';
 import { useUser } from '@clerk/nextjs';
 
 type Cities = string[];
@@ -30,8 +30,10 @@ const SearchHist = () => {
       {user ? (
         <Suspense fallback="loading">
           <ListboxWrapper>
+            <h1 className="ms-2">Search History</h1>
+            <Divider></Divider>
             <Listbox
-              className="flex flex-wrap flex-col overflow-scroll max-h-48"
+              className="flex flex-wrap flex-col max-h-48"
               aria-label="search history"
             >
               {searchHistory &&
