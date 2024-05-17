@@ -1,4 +1,4 @@
-'server-only';
+// 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { getAuth } from '@clerk/nextjs/server';
@@ -17,6 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json({ rows }, { status: 200 });
   } catch (error: any) {
+    console.error(error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   } finally {
     await client.end();

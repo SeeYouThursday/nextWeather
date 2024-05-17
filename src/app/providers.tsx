@@ -23,23 +23,30 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Search Submission Signal
-const SearchSubmitState = createContext<{
-  submitted: boolean;
-  setSubmit: React.Dispatch<React.SetStateAction<boolean>>;
-}>({ submitted: false, setSubmit: () => {} });
+// Create a context
+const ErrorAndSubmitContext = createContext<{
+  error: boolean;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
+  submitted: boolean; // Add the missing property 'submitted'
+  setSubmit: React.Dispatch<React.SetStateAction<boolean>>; // Add the missing property 'setSubmit'
+}>({ error: false, setError: () => {}, submitted: false, setSubmit: () => {} });
 
-export const useGlobalSubmit = () => useContext(SearchSubmitState);
+export const useErrAndSubmitContext = () => useContext(ErrorAndSubmitContext);
 
-export function SearchSubmitProvider({
+export function ErrorAndSubmitProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [submitted, setSubmit] = useState(false);
+  const [error, setError] = useState(false);
+  const [submitted, setSubmit] = useState(false); // assuming you want to use state for 'submitted'
+
+  // Use the .Provider property on the context object
   return (
-    <SearchSubmitState.Provider value={{ submitted, setSubmit }}>
+    <ErrorAndSubmitContext.Provider
+      value={{ error, setError, submitted, setSubmit }}
+    >
       {children}
-    </SearchSubmitState.Provider>
+    </ErrorAndSubmitContext.Provider>
   );
 }

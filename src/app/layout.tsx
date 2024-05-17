@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Providers, SearchProvider, SearchSubmitProvider } from './providers';
+import { Providers, SearchProvider, ErrorAndSubmitProvider } from './providers';
 import { ClerkProvider } from '@clerk/nextjs';
 
 import Nav from './_components/Nav';
@@ -22,10 +22,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <ClerkProvider>
           <SearchProvider>
-            <SearchSubmitProvider>
+            <ErrorAndSubmitProvider>
               <Nav />
               <Providers>{children}</Providers>
-            </SearchSubmitProvider>
+            </ErrorAndSubmitProvider>
           </SearchProvider>
         </ClerkProvider>
       </body>

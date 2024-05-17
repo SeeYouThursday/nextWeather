@@ -6,7 +6,7 @@ import {
   calcHighTemp,
 } from '@/app/_lib/utils/fetch';
 import WeatherCard from '../WeatherCard';
-import { useGlobalContext } from '@/app/providers';
+import { useErrAndSubmitContext } from '@/app/providers';
 
 interface WeatherData {
   dt: number;
@@ -30,18 +30,20 @@ interface Coords {
 const FiveDayForeCast = ({ city }: { city: string }) => {
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const [loading, setLoading] = useState(true);
+  const { error, setError, submitted, setSubmit } = useErrAndSubmitContext();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const coords: Coords | undefined = await geoLocateAPI(city);
         if (!coords) {
+          setError(true);
           throw new Error('Could Not Retrieve Coordinates.');
         }
-        const weatherData = await fiveDayForecast(coords.lat, coords.long);
-        const weatherList = weatherData.list;
+        const weatherFetchData = await fiveDayForecast(coords.lat, coords.long);
+        const weatherList = weatherFetchData.list;
         if (!weatherList) {
-          throw new Error('Could Not Retrieve Coordinates.');
+          setError(true);
         }
         const maxTemps = calcHighTemp(weatherList);
         const filteredWeatherData = weatherList.filter(
@@ -59,10 +61,11 @@ const FiveDayForeCast = ({ city }: { city: string }) => {
             return element.main.temp === maxTempData.maxTemp;
           }
         );
-
-        setWeatherData(filteredWeatherData.slice(0, 5));
+        const splicedWD = filteredWeatherData.slice(0, 5);
+        setWeatherData(splicedWD);
         setLoading(false);
       } catch (err) {
+        setError(true);
         console.log(err);
       }
     };
@@ -78,42 +81,24 @@ const FiveDayForeCast = ({ city }: { city: string }) => {
     <div className="flex flex-col items-center ms-auto me-auto">
       <h3 className="text-black text-center m-3 font-bold text-2xl">{city}</h3>
       <div className="flex flex-wrap sm:items-start lg:items-center md:justify-center">
-        {weatherData.map(
-          (data: WeatherData): React.ReactElement => (
-            <WeatherCard
-              key={data.dt}
-              date={new Date(data.dt * 1000).toISOString()}
-              temp={data.main.temp}
-              wind={data.wind.speed}
-              humidity={data.main.humidity}
-              icon={data.weather[0].icon}
-              description={data.weather[0].description}
-            />
-          )
-        )}
+        {submitted
+          ? weatherData.map(
+              (data: WeatherData): React.ReactElement => (
+                <WeatherCard
+                  key={data.dt}
+                  date={new Date(data.dt * 1000).toISOString()}
+                  temp={data.main.temp}
+                  wind={data.wind.speed}
+                  humidity={data.main.humidity}
+                  icon={data.weather[0].icon}
+                  description={data.weather[0].description}
+                />
+              )
+            )
+          : null}
       </div>
     </div>
   );
 };
-
-//     return filteredWeatherData
-//       .slice(0, 5)
-//       .map(
-//         (data: WeatherData): React.ReactElement => (
-//           <WeatherCard
-//             key={data.dt}
-//             date={new Date(data.dt * 1000).toISOString()}
-//             temp={data.main.temp}
-//             wind={data.wind.speed}
-//             humidity={data.main.humidity}
-//             icon={data.weather[0].icon}
-//             description={data.weather[0].description}
-//           />
-//         )
-//       );
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 export default FiveDayForeCast;

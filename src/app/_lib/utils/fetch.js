@@ -21,7 +21,6 @@ export const geoLocateAPI = async (city) => {
       const long = data[0].lon;
       const lat = data[0].lat;
       const coords = { lat, long };
-      console.log(coords);
       return coords;
     }
   } catch (err) {
@@ -35,7 +34,6 @@ export const fiveDayForecast = async (lat, long) => {
 
   try {
     const data = await fetchingData(fiveDayForecast);
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err);

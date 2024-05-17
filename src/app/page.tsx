@@ -5,7 +5,7 @@ import Hero from './_components/Hero';
 import Features from './_components/Features';
 import SearchHist from './_components/SearchHist';
 import FiveDayForeCast from './_components/FiveDayForecast';
-import { useGlobalContext, useGlobalSubmit } from '@/app/providers';
+import { useGlobalContext, useErrAndSubmitContext } from '@/app/providers';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel, Keyboard } from 'swiper/modules';
 import SwiperCore from 'swiper';
@@ -20,7 +20,7 @@ const sections = [<Hero key={'hero'} />, <Features key={'features'} />];
 
 export default function Home() {
   const { city } = useGlobalContext();
-  const { submitted } = useGlobalSubmit();
+  // const { error, setError, submitted, setSubmit } = useErrAndSubmitContext();
 
   return (
     <main className="grid">

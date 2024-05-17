@@ -2,13 +2,13 @@
 import { useState, Suspense, useEffect } from 'react';
 import { Input, Button } from '@nextui-org/react';
 import FiveDayForeCast from '../FiveDayForecast';
-import { useGlobalContext, useGlobalSubmit } from '@/app/providers';
+import { useGlobalContext, useErrAndSubmitContext } from '@/app/providers';
 // import { getAuth } from '@clerk/nextjs/server';
 import { useUser } from '@clerk/nextjs';
 
 const SearchInput = () => {
   const [search, setSearch] = useState('');
-  const { setSubmit } = useGlobalSubmit();
+  const { error, setError, submitted, setSubmit } = useErrAndSubmitContext();
 
   const { city, setCity } = useGlobalContext();
 
@@ -17,6 +17,7 @@ const SearchInput = () => {
   useEffect(() => {
     const updateCity = async () => {
       try {
+        setError(false);
         await fetch('/api/search-history/update', {
           method: 'POST',
           headers: {
@@ -25,6 +26,7 @@ const SearchInput = () => {
           body: JSON.stringify({ city: city }),
         });
       } catch (err) {
+        setError(true);
         console.log(err);
       }
     };
@@ -42,10 +44,10 @@ const SearchInput = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmit(true);
     if (search) {
       setCity(search.trim());
       console.log(city);
-      setSubmit(true);
     }
   };
 
@@ -53,9 +55,12 @@ const SearchInput = () => {
     <>
       <form onSubmit={handleSubmit}>
         <Input
+          type="text"
           placeholder="Enter City, State, or Zip"
           value={search}
           onChange={handleSearchInput}
+          isInvalid={error}
+          errorMessage="uh oh, I can't find this"
           classNames={{
             base: 'max-w-full sm:max-w-[90rem] h-10',
             mainWrapper: 'h-full',
@@ -68,12 +73,6 @@ const SearchInput = () => {
       </form>
 
       <hr></hr>
-
-      {/* {submit ? (
-        <Suspense fallback={<div>Loading</div>}>
-          <FiveDayForeCast />
-        </Suspense>
-      ) : null} */}
     </>
   );
 };

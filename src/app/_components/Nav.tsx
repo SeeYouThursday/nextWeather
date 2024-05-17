@@ -20,6 +20,7 @@ const Nav = () => {
   // used to track active tab/link in nav
   const [isActive, setIsActive] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [error, setError] = useState(false);
 
   const pathname = usePathname();
 
