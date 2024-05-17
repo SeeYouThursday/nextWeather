@@ -13,7 +13,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { rows } =
-      await sql`SELECT DISTINCT (cities) FROM users WHERE clerkid = ${userId};`;
+      await sql`SELECT (cities) FROM users WHERE clerkid = ${userId};`;
 
     return NextResponse.json({ rows }, { status: 200 });
   } catch (error: any) {

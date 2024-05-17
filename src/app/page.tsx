@@ -50,16 +50,17 @@ export default function Home() {
             alt="Five Day Forecast"
             className="ms-auto me-auto mt-14 rounded-lg bg-white"
           />{' '}
-        </SwiperSlide>
-        <SwiperSlide className="backgroundFeature bgImageBasic">
-          <Features />
-        </SwiperSlide>
-        <Suspense fallback={<div>Loading</div>}>
           <section className="flex h-screen swiper-no-swiping">
             <h2>{city}</h2>
             <FiveDayForeCast city={city} />
           </section>
-        </Suspense>
+        </SwiperSlide>
+        <SwiperSlide className="backgroundFeature bgImageBasic">
+          <Features />
+        </SwiperSlide>
+        {/* <Suspense fallback={<div>Loading</div>}> */}
+
+        {/* </Suspense> */}
       </Swiper>
     </main>
   );
