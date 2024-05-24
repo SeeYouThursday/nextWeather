@@ -44,7 +44,6 @@ const SearchInput = () => {
     setSubmit(true);
     if (search) {
       setCity(search.trim());
-      console.log(city);
     }
   };
 

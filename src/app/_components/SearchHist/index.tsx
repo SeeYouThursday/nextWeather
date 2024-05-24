@@ -19,7 +19,8 @@ const SearchHist = () => {
         const { rows } = await response.json();
         if (rows) {
           const results = rows[0].cities?.filter((city: string) => city !== '');
-          setSearchHistory(results);
+          const five = results.splice(0, 5);
+          setSearchHistory(five);
         }
       } catch (err) {
         console.log(err);
