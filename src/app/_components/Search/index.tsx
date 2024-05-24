@@ -4,15 +4,12 @@ import { Input, Button } from '@nextui-org/react';
 import FiveDayForeCast from '../FiveDayForecast';
 import { useGlobalContext, useErrAndSubmitContext } from '@/app/providers';
 // import { getAuth } from '@clerk/nextjs/server';
-import { useUser } from '@clerk/nextjs';
 
 const SearchInput = () => {
   const [search, setSearch] = useState('');
   const { error, setError, submitted, setSubmit } = useErrAndSubmitContext();
 
   const { city, setCity } = useGlobalContext();
-
-  const { isLoaded, isSignedIn, user } = useUser();
 
   useEffect(() => {
     const updateCity = async () => {
@@ -53,7 +50,7 @@ const SearchInput = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="ms-56">
         <Input
           type="text"
           placeholder="Enter City, State, or Zip"

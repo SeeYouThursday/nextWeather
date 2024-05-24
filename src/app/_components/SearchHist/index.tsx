@@ -1,12 +1,16 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Divider, Listbox, ListboxItem } from '@nextui-org/react';
 import { useUser } from '@clerk/nextjs';
+import { useGlobalContext, useErrAndSubmitContext } from '@/app/providers';
 
 type Cities = string[];
 
 const SearchHist = () => {
   const [searchHistory, setSearchHistory] = useState<Cities>([]);
   const { user } = useUser();
+  const { city, setCity } = useGlobalContext();
+  const { error, setError, submitted, setSubmit } = useErrAndSubmitContext();
+  //on press - change city state to value pressed - render 5 days (happens auto based on city change)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +18,7 @@ const SearchHist = () => {
         const response = await fetch('/api/search-history', { method: 'GET' });
         const { rows } = await response.json();
         if (rows) {
-          const results = rows[0].cities.filter((city: string) => city !== '');
+          const results = rows[0].cities?.filter((city: string) => city !== '');
           setSearchHistory(results);
         }
       } catch (err) {
@@ -28,7 +32,7 @@ const SearchHist = () => {
   return (
     <>
       {user ? (
-        <Suspense fallback="loading">
+        <Suspense fallback="<div>loading</div>">
           <ListboxWrapper>
             <h1 className="ms-2">Search History</h1>
             <Divider></Divider>
@@ -38,7 +42,15 @@ const SearchHist = () => {
             >
               {searchHistory &&
                 searchHistory.map((item: string, index: number) => (
-                  <ListboxItem key={index}>{item}</ListboxItem>
+                  <ListboxItem
+                    key={index}
+                    onPress={() => {
+                      setCity(item);
+                      setSubmit(true);
+                    }}
+                  >
+                    {item}
+                  </ListboxItem>
                 ))}
             </Listbox>
           </ListboxWrapper>

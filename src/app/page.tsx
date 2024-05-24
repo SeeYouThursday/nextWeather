@@ -32,7 +32,6 @@ export default function Home() {
         keyboard={{ enabled: true, onlyInViewport: false }}
         // effect="fade"
         speed={500}
-
         // https://swiperjs.com/swiper-api#param-eventsTarget
       >
         <SwiperSlide className="backgroundImage bgImageBasic">
@@ -41,7 +40,7 @@ export default function Home() {
             <SearchHist />
           </div>
         </SwiperSlide>
-        <SwiperSlide className="flex">
+        <SwiperSlide>
           <Image
             src="/LGFiveDayLabel.gif"
             height={500}
@@ -49,18 +48,12 @@ export default function Home() {
             quality={100}
             alt="Five Day Forecast"
             className="ms-auto me-auto mt-14 rounded-lg bg-white"
-          />{' '}
-          <section className="flex h-screen swiper-no-swiping">
-            <h2>{city}</h2>
-            <FiveDayForeCast city={city} />
-          </section>
+          />
+          <FiveDayForeCast city={city} />
         </SwiperSlide>
         <SwiperSlide className="backgroundFeature bgImageBasic">
           <Features />
         </SwiperSlide>
-        {/* <Suspense fallback={<div>Loading</div>}> */}
-
-        {/* </Suspense> */}
       </Swiper>
     </main>
   );

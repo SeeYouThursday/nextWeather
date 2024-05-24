@@ -78,9 +78,9 @@ const FiveDayForeCast = ({ city }: { city: string }) => {
   }
 
   return (
-    <div className="flex flex-col items-center ms-auto me-auto">
+    <div className="flex flex-col">
       <h3 className="text-black text-center m-3 font-bold text-2xl">{city}</h3>
-      <div className="flex flex-wrap sm:items-start lg:items-center md:justify-center">
+      <div className="flex items-start">
         {submitted
           ? weatherData.map(
               (data: WeatherData): React.ReactElement => (
